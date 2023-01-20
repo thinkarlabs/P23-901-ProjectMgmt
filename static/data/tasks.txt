@@ -1,0 +1,34 @@
+{
+  "header": "todo",
+  "tasks": [
+      {
+		  "task_id": "01",
+		  "task_title": "Build HTML for Projects1",
+		  "task_owner": "Subhashree Das",
+		  "task_status": "WIP",
+		  "task_desc": "Build the HTML for the project page"
+		},
+      {
+		  "task_id": "02",
+		  "task_title": "Build HTML for Login",
+		  "task_owner": "Preeti Singh",
+		  "task_status": "Done",
+		  "task_desc": "Build the HTML for the Login page"
+		},
+      {
+		  "task_id": "03",
+		  "task_title": "Build HTML for Teams",
+		  "task_owner": "Chandani Sharma",
+		  "task_status": "Todo",
+		  "task_desc": "Build the HTML for the Teams page"
+		},
+      {
+		  "task_id": "04",
+		  "task_title": "Build HTML for Tasks",
+		  "task_owner": "Neha Singh",
+		  "task_status": "WIP",
+		  "task_desc": "Build the HTML for the Tasks page"
+		}		
+  ],
+  "empty": false
+}

@@ -1,0 +1,5 @@
+python-dotenv
+python-multipart
+pymongo[srv]
+fastapi
+uvicorn

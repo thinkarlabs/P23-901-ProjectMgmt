@@ -1,0 +1,60 @@
+{% extends "static/pages/_common/base.htm" %}
+
+{% block body %}
+<div id='x-main' class="container-full mt-5 p-3">
+<div class="container-md">
+<div class="row">
+<div class="col-12 p-2">
+	<h3 class="float-start">Edit Task</h3>
+	<button type="button" class="btn btn-primary float-end mx-2" data-nav='todo.tasks'>Cancel</button>		
+	<button type="button" class="btn btn-primary float-end mx-2" data-nav='todo.tasks'>Save</button>		
+</div>
+</div>
+<div id='x-challenge' class="container-float">
+
+	<div class="row">
+	<div class="col-12">
+	  <label for="exampleFormControlnput1">Task Title</label>
+	  <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Build HTML for Projects">
+	</div>
+		
+	<div class="col-12 mt-3">
+	  <label for="exampleFormControlInput1">Description</label>
+	  <textarea type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter Desc"></textarea>
+
+	</div>
+
+	<div class="col-4 mt-3">
+		<label for="exampleFormControlInput1">Owner</label>
+		<select id="exampleFormControlInput1" class="form-select">
+			<option selected value="SD">SD</option>
+			<option value="CD">CD</option>
+			<option value="PS">PS</option>
+			<option value="NS">NS</option>
+		</select>
+	</div>
+
+	<div class="col-4 mt-3">
+	  <label for="exampleFormControlInput1">Status</label>
+		<select id="exampleFormControlInput1" class="form-select">
+			<option selected value="WIP">WIP</option>
+			<option value="Todo">Todo</option>
+			<option value="Done">Done</option>
+		</select>
+	</div>
+	
+	<div class="col-4 mt-3">
+		<label for="exampleFormControlInput1">Sprint</label>
+		<select id="exampleFormControlInput1" class="form-select">
+			<option selected value="SD">Sprint 3</option>
+			<option value="CD">Sprint 2</option>
+			<option value="PS">Sprint 1</option>
+			<option value="NS">Backlog</option>
+		</select>
+	</div>
+	
+	</div>
+</div>
+</div>
+{% endblock %}
+
