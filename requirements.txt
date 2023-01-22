@@ -3,3 +3,5 @@ python-multipart
 pymongo[srv]
 fastapi
 uvicorn
+pytest
+httpx

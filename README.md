@@ -31,6 +31,9 @@ The below are instructions to get started with the development of this project.
         ```
 You should now be able to browse to the application from your browser using http://localhost:8000
 
+For more info refer to article - https://www.mongodb.com/languages/python/pymongo-tutorial
+and github repo - https://github.com/mongodb-developer/pymongo-fastapi-crud
+
 
 
 

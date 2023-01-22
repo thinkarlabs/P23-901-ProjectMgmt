@@ -3,37 +3,51 @@
 {% block body %}
 <div id='x-main' class="container-full mt-5 p-3">
 <div class="container-md">
+<form method="post" id="project_form">
 <div class="row">
+{% if data._id|length %}
+<div class="col-12 p-2">
+	<h3 class="float-start">Edit Project</h3>
+	<button type="button" class="btn btn-primary float-end mx-2" data-nav='todo.projects'>Cancel</button>		
+	<button id="action" type="submit" class="btn btn-primary float-end mx-2" data-nav='todo.projects' formaction="/api/project/{{data._id}}">Update</button>		
+</div>
+{% else %}
 <div class="col-12 p-2">
 	<h3 class="float-start">Add New Project</h3>
 	<button type="button" class="btn btn-primary float-end mx-2" data-nav='todo.projects'>Cancel</button>		
-	<button type="button" class="btn btn-primary float-end mx-2" data-nav='todo.projects'>Save</button>		
+	<button id="action" type="submit" class="btn btn-primary float-end mx-2" data-nav='todo.projects' formaction="/api/project/">Save</button>		
 </div>
+{% endif %}
 </div>
 <div id='x-challenge' class="container-float">
 
 	<div class="row">
+	
 	<div class="col-6">
 	  <label for="exampleFormControlInput1">Title</label>
-	  <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter New Project Name">
+	  {% if data._id|length %}
+	  <input type="text" value="{{data._id}}" name="_id" hidden>
+	  {% endif %}
+	  <input type="text" class="form-control" id="exampleFormControlInput1" value="{{data.name}}" placeholder="Enter New Project Name" name="name">
 	</div>
 	<div class="col-3">
 	  <label for="exampleFormControlInput1">Start Date</label>
-	  <input type="date" class="form-control" id="exampleFormControlInput1" placeholder="Enter Start Date">
+	  <input type="date" class="form-control" id="exampleFormControlInput1" value="{{data.start}}" placeholder="Enter Start Date" name="start">
 	</div>
 
 	<div class="col-3">
 	  <label for="exampleFormControlInput1">End Date</label>
-	  <input type="date" class="form-control" id="exampleFormControlInput1" placeholder="Enter End Date">
+	  <input type="date" class="form-control" id="exampleFormControlInput1" value="{{data.end}}" placeholder="Enter End Date" name="end">
 	</div>
-<p>
+
 	<div class="col-12">
-	  <label for="exampleFormControlInput1">Desc</label>
-	  <textarea type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter Desc"></textarea>
-	</div>
+	  <label for="exampleFormControlInput1">Description</label>
+	  <textarea type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter Desc" name="desc">{{data.desc}}</textarea>
+	</div>	
 	
 	</div>
 </div>
+</form>
 </div>
 {% endblock %}
 
