@@ -25,13 +25,22 @@ The below are instructions to get started with the development of this project.
         ``` 
         pip install -r requirements.txt
         ```
-    6. Run the project using the following command
+    6. Copy the .env.txt file as just a .env file and set the values from your mongoDB atlas (Remember to provide Network Access to ALL - 0.0.0.0/0 - for your cluster on MongoDB Atlas)  
+        ``` 
+        CONNECTION_STRING = "mongodb+srv://<MONGODB_USERID>:<MONGODB_PWD>@<ATLASMONGO_CLUSERNAME>.mongodb.net/"
+		DB_NAME=<DB_NAME>
+        ```
+    7. Run the tests for the project using the following command
+        ``` 
+        py -m pytest
+        ```
+	8. Run the project using the following command
         ``` 
         uvicorn main:app --reload --port 8000
-        ```
+        ```		
 You should now be able to browse to the application from your browser using http://localhost:8000
 
-For more info refer to article - https://www.mongodb.com/languages/python/pymongo-tutorial
+For a FastAPI/MongoDB Tutorial follow - https://www.mongodb.com/languages/python/pymongo-tutorial
 and github repo - https://github.com/mongodb-developer/pymongo-fastapi-crud
 
 
