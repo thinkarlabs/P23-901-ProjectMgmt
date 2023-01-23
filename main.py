@@ -1,9 +1,10 @@
 from fastapi import FastAPI, Request, Form
 from dotenv import dotenv_values
 from pymongo import MongoClient
-from app.routes import router as project_router
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
+
+from app.routes import router as project_router
 
 config = dotenv_values(".env")
 
