@@ -10,7 +10,7 @@ config = dotenv_values(".env")
 app.include_router(project_router, tags=["projects"], prefix="/project")
 app.mongodb_client = MongoClient(config["CONNECTION_STRING"])
 app.database = app.mongodb_client[config["DB_NAME"] + "_test"]
-app.mongodb_client.drop_database(config["DB_NAME"] + "_test")
+#app.mongodb_client.drop_database(config["DB_NAME"] + "_test")
  
 def test_get_projects():
     with TestClient(app) as client:
