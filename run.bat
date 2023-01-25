@@ -1,4 +1,4 @@
-@echo off
+@echo on
 start msedge http://localhost:23901/
 uvicorn main:app --reload --port 23901
 
