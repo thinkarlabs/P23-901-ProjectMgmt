@@ -4,21 +4,20 @@ from fastapi.testclient import TestClient
 from dotenv import dotenv_values
 from pymongo import MongoClient
 
+from app.project.apis import project_api as project_apiroutes
+
 app = FastAPI()
 config = dotenv_values(".env")
 app.mongodb_client = MongoClient(config["CONNECTION_STRING"])
 app.database = app.mongodb_client[config["DB_NAME"] + "_test"]
 #app.mongodb_client.drop_database(config["DB_NAME"] + "_test")
-
-from app.project.apis import project_api as project_apiroutes
 app.include_router(project_apiroutes, tags=["projects"], prefix="/api/project")
- 
+
+
 def test_get_projects():
     with TestClient(app) as client:
         get_projects_response = client.get("/api/project/")
         assert get_projects_response.status_code == 200
-        body = get_projects_response.json()
-        print (body)
  
 def test_create_project():
     with TestClient(app) as client:
@@ -38,18 +37,18 @@ def test_create_project_missing_name():
         assert response.status_code == 422
 
 
-def test_create_book_missing_start():
+def test_create_project_missing_start():
     with TestClient(app) as client:
         response = client.post("/api/project/", json={"name": "Project 01", "end": "17-Jan-2023", "desc": "New Project"})
         assert response.status_code == 422
 
 
-def test_create_book_missing_end():
+def test_create_project_missing_end():
     with TestClient(app) as client:
         response = client.post("/api/project/", json={"name": "Project 01", "start": "12-Jan-2023", "desc": "New Project"})
         assert response.status_code == 422
         
-def test_create_book_missing_desc():
+def test_create_project_missing_desc():
     with TestClient(app) as client:
         response = client.post("/api/project/", json={"name": "Project 01", "start": "12-Jan-2023","end": "17-Jan-2023"})
         assert response.status_code == 422
@@ -89,8 +88,7 @@ def test_delete_project():
         delete_project_response = client.delete("/api/project/" + new_project.get("_id"))
         assert delete_project_response.status_code == 204
 
-
-def test_delete_book_unexisting():
+def test_delete_project_unexisting():
     with TestClient(app) as client:
         delete_project_response = client.delete("/api/project/unexisting_id")
         assert delete_project_response.status_code == 404        
