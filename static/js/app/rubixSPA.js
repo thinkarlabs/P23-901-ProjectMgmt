@@ -41,7 +41,7 @@ function x_render(routeKey,json){
     
 	x_log(purl,1);	
 	var env = nunjucks.configure([''],{ autoescape: false });
-	document.getElementById(div).innerHTML = nunjucks.render(purl, {"data" : json});
+	document.getElementById(div).innerHTML = nunjucks.render(purl, json);
 	if (x_routes[routeKey].x_code !== undefined){loadScript(x_routes[routeKey].x_code)}
 	bind_events();
 }

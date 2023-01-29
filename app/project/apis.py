@@ -11,7 +11,7 @@ project_api = APIRouter()
 def list_projects(request: Request):
     projects = list(request.app.database["projects"].find({}))
     print(projects)
-    return projects
+    return {"projects":projects}
     
 @project_api.get("/{id}", response_description="Get a single project by id", response_model=Project)
 def find_project(id: str, request: Request):
