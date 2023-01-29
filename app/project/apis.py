@@ -34,16 +34,19 @@ async def create_project(request: Request, project: Project = Body(...)):
     return created_project
 
 @project_api.post("/{id}", response_description="Update a project", response_model=Project)
-def update_project(id: str, request: Request, project: ProjectUpdate = Body(...)):
-    project = {k: v for k, v in project.dict().items() if v is not None}
+async def update_project(id: str, request: Request, project: ProjectUpdate = Body(...)):
+    p = await request.json()
+    print(p)
+    
+    #project = {k: v for k, v in project.dict().items() if v is not None}
 
-    if len(project) >= 1:
-        update_result = request.app.database["projects"].update_one(
-            {"_id": id}, {"$set": project}
-        )
+    #if len(project) >= 1:
+    update_result = request.app.database["projects"].update_one(
+        {"_id": id}, {"$set": p}
+    )
 
-        if update_result.modified_count == 0:
-            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Project with ID {id} not found")
+    if update_result.modified_count == 0:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Project with ID {id} not found")
 
     if (
         existing_project := request.app.database["projects"].find_one({"_id": id})

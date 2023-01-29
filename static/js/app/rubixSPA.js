@@ -40,8 +40,13 @@ function x_render(routeKey,json){
 	if (x_routes[routeKey].x_div !== undefined){div = x_routes[routeKey].x_div;} 
     
 	x_log(purl,1);	
+	x_log(json,1);
 	var env = nunjucks.configure([''],{ autoescape: false });
-	document.getElementById(div).innerHTML = nunjucks.render(purl, json);
+	try {
+		document.getElementById(div).innerHTML = nunjucks.render(purl, json);
+	} catch (e) {
+		x_log(e,1);
+	}
 	if (x_routes[routeKey].x_code !== undefined){loadScript(x_routes[routeKey].x_code)}
 	bind_events();
 }

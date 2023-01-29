@@ -70,13 +70,29 @@ def test_get_project_unexisting():
         get_project_response = client.get("/api/project/unexisting_id")
         assert get_project_response.status_code == 404
         
-def test_update_project():
+def test_update_project_name():
     with TestClient(app) as client:
         new_project = client.post("/api/project/", json={"name": "Project 01c", "start": "2023-01-12","end": "2023-01-17", "desc": "New Project"}).json()
 
         response = client.post("/api/project/" + new_project.get("_id"), json={"name": "Project 01c - Updated"})
         assert response.status_code == 200
         assert response.json().get("name") == "Project 01c - Updated"
+
+def test_update_project_start():
+    with TestClient(app) as client:
+        new_project = client.post("/api/project/", json={"name": "Project 01c1", "start": "2023-01-12","end": "2023-01-17", "desc": "New Project"}).json()
+
+        response = client.post("/api/project/" + new_project.get("_id"), json={"start": "2023-01-13"})
+        assert response.status_code == 200
+        assert response.json().get("start") == "2023-01-13"
+
+def test_update_project_end():
+    with TestClient(app) as client:
+        new_project = client.post("/api/project/", json={"name": "Project 01c1", "start": "2023-01-12","end": "2023-01-17", "desc": "New Project"}).json()
+
+        response = client.post("/api/project/" + new_project.get("_id"), json={"end": "2023-01-18"})
+        assert response.status_code == 200
+        assert response.json().get("end") == "2023-01-18"
 
 
 def test_update_project_unexisting():

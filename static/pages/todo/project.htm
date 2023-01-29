@@ -5,11 +5,11 @@
 <div class="container-md">
 
 <div class="row">
-{% if data._id|length %}
+{% if _id|length %}
 <div class="col-12 p-2">
 	<h3 class="float-start">Edit Project</h3>
 	<button type="button" class="btn btn-primary float-end mx-2" data-nav='todo.projects'>Cancel</button>		
-	<button id="action" type="submit" class="btn btn-primary float-end mx-2" data-do="todo.project.save/{{data._id}}" data-form="project_form">Update</button>		
+	<button id="action" type="submit" class="btn btn-primary float-end mx-2" data-do="todo.project.save/{{_id}}" data-form="project_form">Update</button>		
 </div>
 {% else %}
 <div class="col-12 p-2">
@@ -25,24 +25,24 @@
 	<div class="row">
 	<div class="col-6">
 	  <label for="exampleFormControlInput1">Title</label>
-	  {% if data._id|length %}
-	  <input type="text" value="{{data._id}}" name="_id" hidden>
+	  {% if _id|length %}
+	  <input type="text" value="{{_id}}" name="_id" hidden>
 	  {% endif %}
-	  <input type="text" class="form-control" id="exampleFormControlInput1" value="{{data.name}}" placeholder="Enter New Project Name" name="name">
+	  <input type="text" class="form-control" id="exampleFormControlInput1" value="{{name}}" placeholder="Enter New Project Name" name="name">
 	</div>
 	<div class="col-3">
 	  <label for="exampleFormControlInput1">Start Date</label>
-	  <input type="date" class="form-control" id="exampleFormControlInput1" value="{{data.start}}" placeholder="Enter Start Date" name="start">
+	  <input type="date" class="form-control" id="exampleFormControlInput1" value="{{start}}" placeholder="Enter Start Date" name="start">
 	</div>
 
 	<div class="col-3">
 	  <label for="exampleFormControlInput1">End Date</label>
-	  <input type="date" class="form-control" id="exampleFormControlInput1" value="{{data.end}}" placeholder="Enter End Date" name="end">
+	  <input type="date" class="form-control" id="exampleFormControlInput1" value="{{end}}" placeholder="Enter End Date" name="end">
 	</div>
 
 	<div class="col-12">
 	  <label for="exampleFormControlInput1">Description</label>
-	  <textarea type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter Desc" name="desc">{{data.desc}}</textarea>
+	  <textarea type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter Desc" name="desc">{{desc}}</textarea>
 	</div>	
 
 	</div>
