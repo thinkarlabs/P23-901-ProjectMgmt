@@ -24,41 +24,41 @@ def test_get_projects(capsys):
  
 def test_create_project():
     with TestClient(app) as client:
-        response = client.post("/api/project/", json={"name": "Project 01a", "start": "12-Jan-2023","end": "17-Jan-2023", "desc": "New Project"})
+        response = client.post("/api/project/", json={"name": "Project 01a", "start": "2023-01-12","end": "2023-01-17", "desc": "New Project"})
         assert response.status_code == 201
 
         body = response.json()
         assert body.get("name") == "Project 01a"
-        assert body.get("start") == "12-Jan-2023"
-        assert body.get("end") == "17-Jan-2023"
+        assert body.get("start") == "2023-01-12"
+        assert body.get("end") == "2023-01-17"
         assert body.get("desc") == "New Project"
         assert "_id" in body
 
 def test_create_project_missing_name():
     with TestClient(app) as client:
-        response = client.post("/api/project/", json={"start": "12-Jan-2023","end": "17-Jan-2023", "desc": "New Project"})
+        response = client.post("/api/project/", json={"start": "2023-01-12","end": "2023-01-17", "desc": "New Project"})
         assert response.status_code == 422
 
 
 def test_create_project_missing_start():
     with TestClient(app) as client:
-        response = client.post("/api/project/", json={"name": "Project 01", "end": "17-Jan-2023", "desc": "New Project"})
+        response = client.post("/api/project/", json={"name": "Project 01", "end": "2023-01-17", "desc": "New Project"})
         assert response.status_code == 422
 
 
 def test_create_project_missing_end():
     with TestClient(app) as client:
-        response = client.post("/api/project/", json={"name": "Project 01", "start": "12-Jan-2023", "desc": "New Project"})
+        response = client.post("/api/project/", json={"name": "Project 01", "start": "2023-01-12", "desc": "New Project"})
         assert response.status_code == 422
         
 def test_create_project_missing_desc():
     with TestClient(app) as client:
-        response = client.post("/api/project/", json={"name": "Project 01", "start": "12-Jan-2023","end": "17-Jan-2023"})
+        response = client.post("/api/project/", json={"name": "Project 01", "start": "2023-01-12","end": "2023-01-17"})
         assert response.status_code == 422
         
 def test_get_project():
     with TestClient(app) as client:
-        new_project = client.post("/api/project/", json={"name": "Project 01b", "start": "12-Jan-2023","end": "17-Jan-2023", "desc": "New Project"}).json()
+        new_project = client.post("/api/project/", json={"name": "Project 01b", "start": "2023-01-12","end": "2023-01-17", "desc": "New Project"}).json()
 
         get_project_response = client.get("/api/project/" + new_project.get("_id"))
         assert get_project_response.status_code == 200
@@ -72,7 +72,7 @@ def test_get_project_unexisting():
         
 def test_update_project():
     with TestClient(app) as client:
-        new_project = client.post("/api/project/", json={"name": "Project 01c", "start": "12-Jan-2023","end": "17-Jan-2023", "desc": "New Project"}).json()
+        new_project = client.post("/api/project/", json={"name": "Project 01c", "start": "2023-01-12","end": "2023-01-17", "desc": "New Project"}).json()
 
         response = client.post("/api/project/" + new_project.get("_id"), json={"name": "Project 01c - Updated"})
         assert response.status_code == 200
@@ -86,7 +86,7 @@ def test_update_project_unexisting():
 
 def test_delete_project():
     with TestClient(app) as client:
-        new_project = client.post("/api/project/", json={"name": "Project 01d", "start": "12-Jan-2023","end": "17-Jan-2023", "desc": "New Project"}).json()
+        new_project = client.post("/api/project/", json={"name": "Project 01d", "start": "2023-01-12","end": "2023-01-17", "desc": "New Project"}).json()
 
         delete_project_response = client.delete("/api/project/" + new_project.get("_id"))
         assert delete_project_response.status_code == 204

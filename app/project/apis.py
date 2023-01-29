@@ -22,9 +22,9 @@ def find_project(id: str, request: Request):
     
 @project_api.post("/", response_description="Create a new project", status_code=status.HTTP_201_CREATED, response_model=Project)
 async def create_project(request: Request, project: Project = Body(...)):
-    project = await request.json()
-    project["_id"] = str(uuid.uuid4())
-    #project = jsonable_encoder(project)
+    #project = await request.json()
+    #project["_id"] = str(uuid.uuid4())
+    project = jsonable_encoder(project)
     #print(project)
     new_project = request.app.database["projects"].insert_one(project)
     created_project = request.app.database["projects"].find_one(
