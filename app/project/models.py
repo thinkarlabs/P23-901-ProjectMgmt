@@ -1,6 +1,9 @@
 import uuid
-from typing import Optional
-from pydantic import BaseModel, Field
+from typing import Optional, Dict
+from pydantic import BaseModel, Field, Json
+
+class AnyJson(BaseModel):
+    data: Dict
 
 class Project(BaseModel):
     id: str = Field(default_factory=uuid.uuid4, alias="_id")

@@ -1,28 +1,18 @@
 var debugLevel = 2; //1,2,3,4,5.
 
 function bind_events(){
+	$("[data-do]").on('click', function(e) {
+		x_do($(this).data('do'), $(this).data('form'));		
+	});
+
 	$("[data-nav]").on('click', function(e) {
 		x_nav($(this).data('nav'));		
 	});
+
 }
 
-function x_nav(_route){
-	//If a route key is valid, add to history and load the route.
-	routeKey = _route.split('/')[0]
-	
-	if (x_routes[routeKey] === undefined){x_log('Invalid Route..',1); return;}
-	if (x_routes[routeKey].x_act === "del"){
-		if (confirm('Are you sure you want to delete this item NOW?')){
-			params = _route.split('/')[1]
-
-			console.log(x_routes[routeKey].x_do + '/' + params);
-			console.log(x_routes[routeKey].x_go);
-
-			delItem(x_routes[routeKey].x_do + '/' + params);
-			x_load(x_routes[routeKey].x_go);
-		}
-		return;		
-	}	
+function x_nav(_route){	
+	if (x_routes[_route.split('/')[0]] === undefined){x_log('Invalid Route..',1); return;}
 	history.pushState(_route, "", "");
 	x_load(_route);
 }
@@ -56,8 +46,80 @@ function x_render(routeKey,json){
 	bind_events();
 }
 
-//loaded_scripts = []
+function x_do(_url, _formname){
+	routeKey = _url.split('/')[0]
+	params = _url.split('/')[1]
+	if (x_actions[routeKey] === undefined){x_log('Invalid Action Route..',1); return;}
+	
+	action_nav = x_actions[routeKey].x_go
+	action_url = x_actions[routeKey].x_do
+	if (params !== undefined) {action_url += '/' + params}
+	
 
+	if (x_actions[routeKey].x_act === 'post'){
+		const _form = document.getElementById(_formname);
+		x_post(_form, action_url,action_nav); 
+	}
+	if (x_actions[routeKey].x_act === 'del'){
+		x_del(action_url,action_nav); 
+	}
+}
+
+function x_post(_form, _url, _nav){	
+	formdata = getFormData($(_form));
+	console.log (formdata);
+	
+	$.ajax({
+      type: "POST",
+	  contentType: "application/json; charset=utf-8",
+      url: _url,
+      data: formdata
+    }).done(function (data) {
+		console.log(data);
+		if (data === "OK"){
+			x_nav(_nav);
+		}
+		else{
+			x_nav(_nav);
+		}
+    });
+	
+}
+
+function x_del(_url, _nav){
+	if (confirm('Are you sure you want to delete this item?')){
+		$.ajax({
+		  type: "DELETE",
+		  contentType: "application/json; charset=utf-8",
+		  url: _url
+		}).done(function (data) {
+		    console.log(data);
+			if (data === "OK"){
+				x_nav(_nav);
+			}
+			else{
+				x_nav(_nav);
+			}		  
+		});
+	}
+}
+
+//ReadMore for Multi-selection form data conversion
+//https://shawnwang-dev.medium.com/post-arbitrary-json-data-dynamic-form-to-fastapi-using-ajax-84e537ce692b
+function getFormData($form) {
+	var unindexed_array = $form.serializeArray();
+	var indexed_array = {};
+	$.map(unindexed_array, function(n,i){
+		console.log (i);
+		indexed_array[n['name']] = n['value']
+	});
+	
+	jsonString = JSON.stringify(indexed_array);
+	return jsonString
+}
+
+
+//loaded_scripts = []
 function loadScript(scriptSource){
 	//if (loaded_scripts.indexOf(scriptSource) === -1) {
 		var script = document.createElement('script');
@@ -67,6 +129,7 @@ function loadScript(scriptSource){
 	//}
 
 }
+
 window.addEventListener('popstate', onPopState);
 
 function onPopState(e) {
@@ -77,39 +140,4 @@ function onPopState(e) {
 
 function x_log(s,f){
 	if (f <= debugLevel) console.log(s);
-}
-
-function convertFormToJSON(form) {
-  return $(form)
-    .serializeArray()
-    .reduce(function (json, { name, value }) {
-      json[name] = value;
-      return json;
-    }, {});
-}
-
-function postForm(_form, _url){
-	jsonData = JSON.stringify(convertFormToJSON(_form));
-	console.log(jsonData)
-	
-	$.ajax({
-      type: "POST",
-	  contentType: "application/json; charset=utf-8",
-      url: _url,
-      data: jsonData
-    }).done(function (data) {
-      console.log(data);
-    });
-	
-}
-
-function delItem( _url){
-	$.ajax({
-      type: "DELETE",
-	  contentType: "application/json; charset=utf-8",
-      url: _url
-    }).done(function (data) {
-      console.log(data);
-    });
-	
 }

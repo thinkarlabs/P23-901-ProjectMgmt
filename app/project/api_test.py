@@ -10,12 +10,15 @@ app = FastAPI()
 config = dotenv_values(".env")
 app.mongodb_client = MongoClient(config["CONNECTION_STRING"])
 app.database = app.mongodb_client[config["DB_NAME"] + "_test"]
+app.database["projects"].drop()
 #app.mongodb_client.drop_database(config["DB_NAME"] + "_test")
 app.include_router(project_apiroutes, tags=["projects"], prefix="/api/project")
 
 
-def test_get_projects():
+def test_get_projects(capsys):
     with TestClient(app) as client:
+        with capsys.disabled():
+            print('Testing Scenario 1...')
         get_projects_response = client.get("/api/project/")
         assert get_projects_response.status_code == 200
  

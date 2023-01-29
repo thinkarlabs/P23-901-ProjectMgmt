@@ -3,26 +3,26 @@
 {% block body %}
 <div id='x-main' class="container-full mt-5 p-3">
 <div class="container-md">
-<form method="post" id="project_form">
+
 <div class="row">
 {% if data._id|length %}
 <div class="col-12 p-2">
 	<h3 class="float-start">Edit Project</h3>
 	<button type="button" class="btn btn-primary float-end mx-2" data-nav='todo.projects'>Cancel</button>		
-	<button id="action" type="submit" class="btn btn-primary float-end mx-2" data-nav='todo.projects' formaction="/api/project/{{data._id}}">Update</button>		
+	<button id="action" type="submit" class="btn btn-primary float-end mx-2" data-do="todo.project.save/{{data._id}}" data-form="project_form">Update</button>		
 </div>
 {% else %}
 <div class="col-12 p-2">
 	<h3 class="float-start">Add New Project</h3>
 	<button type="button" class="btn btn-primary float-end mx-2" data-nav='todo.projects'>Cancel</button>		
-	<button id="action" type="submit" class="btn btn-primary float-end mx-2" data-nav='todo.projects' formaction="/api/project/">Save</button>		
+	<button class="btn btn-primary float-end mx-2" data-do="todo.project.save" data-form="project_form">Save</button>		
 </div>
 {% endif %}
 </div>
 <div id='x-challenge' class="container-float">
 
+	<form method="post" id="project_form">
 	<div class="row">
-	
 	<div class="col-6">
 	  <label for="exampleFormControlInput1">Title</label>
 	  {% if data._id|length %}
@@ -44,10 +44,10 @@
 	  <label for="exampleFormControlInput1">Description</label>
 	  <textarea type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter Desc" name="desc">{{data.desc}}</textarea>
 	</div>	
-	
+
 	</div>
+	</form>
 </div>
-</form>
 </div>
 {% endblock %}
 
